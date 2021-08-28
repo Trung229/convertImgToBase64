@@ -12,7 +12,7 @@ router.post("/upload/chaps",[upload.array('chaps')],async function(req, res, nex
   console.log(files)
   if(files){
     arrUrl = files.map((item,index) => {
-      return 'http://localhost:7000/images/' + item.originalname;
+      return 'http://mangaimg.herokuapp.com/images/' + item.originalname;
     })
   }
   res.json({ url: arrUrl });
@@ -22,7 +22,7 @@ router.post("/upload/thumbnailManga",[upload.single('thumbnail')],async function
   let {params, body, file} = req
   let thumbnail;
   if(file){
-    thumbnail = 'http://localhost:7000/images/' + file.originalname;
+    thumbnail = 'http://mangaimg.herokuapp.com/images/' + file.originalname;
   }
   res.json({ url: thumbnail });
 })
