@@ -11,9 +11,9 @@ var app = express();
 const cors = require('cors');
 
 app.use(cors({
-  origin:"http://localhost:9000",
+  origin:"*",
 }))
-
+// http://localhost:9000
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
