@@ -12,7 +12,10 @@ router.post("/upload/chaps",[upload.array('chaps')],async function(req, res, nex
   console.log(files)
   if(files){
     arrUrl = files.map((item,index) => {
-      return 'http://mangaimg.herokuapp.com/images/'+ body.chap+"/"  + item.filename;
+      if(body.MangaId){
+        return 'http://mangaimg.herokuapp.com/images/'+ body.MangaId + "/" +body.count+ "/" + item.filename;
+      }
+      return 'http://mangaimg.herokuapp.com/images/thumbnails'+ "/" + item.filename;
     })
   }
   res.json({ url: arrUrl });
@@ -22,7 +25,12 @@ router.post("/upload/thumbnailManga",[upload.single('thumbnail')],async function
   let {params, body, file} = req;
   let thumbnail;
   if(file){
-    thumbnail = 'http://mangaimg.herokuapp.com/images/'+ body.chap+"/" + file.filename;
+    if(body.MangaId){
+      thumbnail = 'http://mangaimg.herokuapp.com/images/'+ body.MangaId+ "/" + body.count + "/" + file.filename;
+    }else{
+      thumbnail = 'http://mangaimg.herokuapp.com/images/thumbnails' + "/" + file.filename;
+
+    }
   }
   res.json({ url: thumbnail });
 })
