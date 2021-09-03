@@ -15,9 +15,9 @@ router.post("/upload/chaps",[upload.array('chaps')],async function(req, res, nex
   if(files){
     arrUrl = files.map((item,index) => {
       if(body.MangaId){
-        return 'https://mangaimg.herokuapp/images/'+ body.MangaId + "/" +body.count+ "/" + item.filename;
+        return 'http://mangaimg.herokuapp/images/'+ body.MangaId + "/" +body.count+ "/" + item.filename;
       }
-      return 'https://mangaimg.herokuapp/images/thumbnails'+ "/" + item.filename;
+      return 'http://mangaimg.herokuapp/images/thumbnails'+ "/" + item.filename;
     })
   }
   res.json({ url: arrUrl });
@@ -28,9 +28,9 @@ router.post("/upload/thumbnailManga",[upload.single('thumbnail')],async function
   let thumbnail;
   if(file){
     if(body.MangaId){
-      thumbnail = 'https://mangaimg.herokuapp/images/'+ body.MangaId+ "/" + body.count + "/" + file.filename;
+      thumbnail = 'http://mangaimg.herokuapp/images/'+ body.MangaId+ "/" + body.count + "/" + file.filename;
     }else{
-      thumbnail = 'https://mangaimg.herokuapp/images/thumbnails' + "/" + file.filename;
+      thumbnail = 'http://mangaimg.herokuapp/images/thumbnails' + "/" + file.filename;
 
     }
   }
