@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 const upload = require('../middlewares/upload');
-
+const deletePost = require('../middlewares/deletePost');
+const fs = require('fs');
+const path = require('path');
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
@@ -13,9 +15,9 @@ router.post("/upload/chaps",[upload.array('chaps')],async function(req, res, nex
   if(files){
     arrUrl = files.map((item,index) => {
       if(body.MangaId){
-        return 'http://mangaimg.herokuapp.com/images/'+ body.MangaId + "/" +body.count+ "/" + item.filename;
+        return 'http://mangaimg.herokuapp/images/'+ body.MangaId + "/" +body.count+ "/" + item.filename;
       }
-      return 'http://mangaimg.herokuapp.com/images/thumbnails'+ "/" + item.filename;
+      return 'http://mangaimg.herokuapp/images/thumbnails'+ "/" + item.filename;
     })
   }
   res.json({ url: arrUrl });
@@ -26,17 +28,24 @@ router.post("/upload/thumbnailManga",[upload.single('thumbnail')],async function
   let thumbnail;
   if(file){
     if(body.MangaId){
-      thumbnail = 'http://mangaimg.herokuapp.com/images/'+ body.MangaId+ "/" + body.count + "/" + file.filename;
+      thumbnail = 'http://mangaimg.herokuapp/images/'+ body.MangaId+ "/" + body.count + "/" + file.filename;
     }else{
-      thumbnail = 'http://mangaimg.herokuapp.com/images/thumbnails' + "/" + file.filename;
+      thumbnail = 'http://mangaimg.herokuapp/images/thumbnails' + "/" + file.filename;
 
     }
   }
   res.json({ url: thumbnail });
 })
 
-// router.post("/upload/thumbnailManga",function(req, res, next) {
-//   let {body} = req
-//   res.json({ body: body });
-// })
+router.post("/upload/chaps/delete", async function(req, res,next){
+  let {params, body, file} = req;
+  let myPath;
+  myPath = '../public'+body.pathFromClient;
+  console.log(myPath)
+  fs.unlink(myPath,(err)=>{
+    console.log(err);
+  })
+  res.json({status:true});
+})
+
 module.exports = router;
