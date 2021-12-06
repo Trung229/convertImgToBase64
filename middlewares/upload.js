@@ -4,9 +4,9 @@ let fs = require('fs-extra');
 
 const storage = multer.diskStorage({ 
     destination:(req,file, cb)=>{
-        const {body:{MangaId = file.fieldname, count = file.originalname}} = req;
-        console.log('=>',file);
-        let path = `./public/images/${MangaId}/${count}`;
+        const {body:{MangaId, count }} = req;
+        console.log('=>',MangaId);
+        let path = MangaId ? `./public/images/${MangaId}/${count}` : `./public/images/others/${file.originalname}`;
         fs.mkdirsSync(path);
         cb(null, path);
     },
