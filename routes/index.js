@@ -28,9 +28,9 @@ router.post("/upload/thumbnailManga",[upload.single('thumbnail')],async function
   let thumbnail;
   if(file){
     if(body.MangaId){
-      thumbnail = 'https://handle-img.travel4t.bandn.online/images/'+ body.MangaId+ "/" + body.count + "/" + file.filename;
+      thumbnail = 'https://handleimg.travel4t.bandn.online/images/'+ body.MangaId+ "/" + body.count + "/" + file.filename;
     }else{
-      thumbnail = 'https://handle-img.travel4t.bandn.online/images/thumbnails' + "/" + file.filename;
+      thumbnail = 'https://handleimg.travel4t.bandn.online/images/thumbnails' + "/" + file.filename;
 
     }
   }
