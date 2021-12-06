@@ -25,12 +25,13 @@ router.post("/upload/chaps",[upload.array('chaps')],async function(req, res, nex
 
 router.post("/upload/thumbnailManga",[upload.single('thumbnail')],async function(req, res, next) {
   let {params, body, file} = req;
+  console.log(file);
   let thumbnail;
   if(file){
     if(body.MangaId){
       thumbnail = 'https://handleimg.travel4t.bandn.online/images/'+ body.MangaId+ "/" + body.count + "/" + file.filename;
     }else{
-      thumbnail = 'https://handleimg.travel4t.bandn.online/images/undefined/undefined' + "/" + file.filename;
+      thumbnail = 'https://handleimg.travel4t.bandn.online/images' + "/" + file.fieldname + "/" + file.originalname;
 
     }
   }
